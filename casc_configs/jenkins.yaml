@@ -12,6 +12,9 @@ jenkins:
       users:
        - id: admin
          password: ${adminpw:-passw0rd}
+      users:
+       - id: admin2
+         password: $123456
 
   authorizationStrategy:
     globalMatrix:
