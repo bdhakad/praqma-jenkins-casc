@@ -71,7 +71,7 @@ unclassified:
     showEntireCommitSummaryInChanges: false
     useExistingAccountWithSameEmail: false
   location:
-    adminAddress: "address not configured yet <nobody@nowhere>"
+    adminAddress: "brajeshdhakad@hotmail.com"
     url: "http://localhost:8080/"
   mailer:
     charset: "UTF-8"
