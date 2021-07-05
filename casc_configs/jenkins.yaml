@@ -10,8 +10,10 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: admin2
-         password: $123456
+       - id: admin
+         password: 123456
+       - id: user2
+         password: 123456  
 
   authorizationStrategy:
     globalMatrix:
