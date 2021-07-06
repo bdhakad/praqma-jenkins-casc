@@ -1,14 +1,25 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - gitLabApiTokenImpl:
+          apiToken: "{AQAAABAAAAAgm3O6yxeaQDWIyl20a97c5ha4dUJEEKJ6P7w24AlGsuuMIT73vzSHm9eZjQeUKx8K}"
+          description: "GitLab accestoken"
+          id: "gitlab_token"
+          scope: GLOBAL
 jenkins:
   agentProtocols:
   - "JNLP4-connect"
   - "Ping"
   authorizationStrategy:
     loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+      allowAnonymousRead: true
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false
   disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "jenkins.monitor.JavaVersionRecommendationAdminMonitor"
   labelAtoms:
   - name: "master"
   markupFormatter: "plainText"
@@ -34,12 +45,14 @@ jenkins:
         - "apiToken"
         - "myView"
         - "timezone"
-      - id: "admin2"
-        name: "admin2"
+      - id: "bdhakad"
+        name: "Rajesh"
         properties:
         - "apiToken"
-        - "myView"
-        - "timezone"  
+        - mailer:
+            emailAddress: "Brajesh.Dhakad@natwest.com"
+        - preferredProvider:
+            providerId: "default"
   slaveAgentPort: 50000
   updateCenter:
     sites:
@@ -61,7 +74,20 @@ unclassified:
     configuredBuildDiscarders:
     - "jobBuildDiscarder"
   casCGlobalConfig:
-    configurationPath: "http://github.com/bdhakad/praqma-jenkins-casc/blob/bdhakad-patch-1/casc_configs/jenkins.yaml"
+    configurationPath: "http://github.com/Praqma/jenkins4casc/blob/master/jenkins-minimal-example.yaml"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitLabConnectionConfig:
+    connections:
+    - apiTokenId: "gitlab_token"
+      clientBuilderId: "autodetect"
+      connectionTimeout: 10
+      ignoreCertificateErrors: false
+      name: "GitLab Connection"
+      readTimeout: 10
+      url: "https://us-south.git.cloud.ibm.com/"
+    useAuthenticatedEndpoint: true
   gitSCM:
     addGitTagAction: false
     allowSecondFetch: false
@@ -70,9 +96,11 @@ unclassified:
     hideCredentials: false
     showEntireCommitSummaryInChanges: false
     useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
   location:
-    adminAddress: "brajeshdhakad@hotmail.com"
-    url: "http://localhost:8080/"
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://tarining-brajesh-jenkins.eu-gb.mybluemix.net/"
   mailer:
     charset: "UTF-8"
     useSsl: false
@@ -84,3 +112,6 @@ tool:
     installations:
     - home: "git"
       name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
