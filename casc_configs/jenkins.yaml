@@ -1,46 +1,117 @@
-jenkins:
-  systemMessage: "\n\nDemo setup for Jenkins Configuration as Code plugin......\n\n"
-
-  numExecutors: 1
-  mode: NORMAL
-  scmCheckoutRetryCount: 3
-  labelString: "master-label"  
-
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-       - id: admin
-         password: ${adminpw:-passw0rd}
-
-  authorizationStrategy:
-    globalMatrix:
-      grantedPermissions:
-        - "Overall/Read:anonymous"
-        - "Job/Read:anonymous"
-        - "View/Read:anonymous"
-        - "Overall/Administer:anonymous"
-
-  crumbIssuer: "standard"
-
-  remotingSecurity:
-    enabled: true    
-
 credentials:
   system:
     domainCredentials:
-      - credentials:
-        - usernamePassword:
-            scope:    GLOBAL
-            id:       github-user
-            username: ewelina
-            password: ${github:-githubPassw0rd}
-            description: github username/password  
-
+    - credentials:
+      - gitLabApiTokenImpl:
+          apiToken: "{AQAAABAAAAAgm3O6yxeaQDWIyl20a97c5ha4dUJEEKJ6P7w24AlGsuuMIT73vzSHm9eZjQeUKx8K}"
+          description: "GitLab accestoken"
+          id: "gitlab_token"
+          scope: GLOBAL
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: true
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "jenkins.monitor.JavaVersionRecommendationAdminMonitor"
+  labelAtoms:
+  - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "admin"
+        name: "admin"
+        properties:
+        - "apiToken"
+        - "myView"
+        - "timezone"
+      - id: "bdhakad"
+        name: "Rajesh"
+        properties:
+        - "apiToken"
+        - mailer:
+            emailAddress: "Brajesh.Dhakad@natwest.com"
+        - preferredProvider:
+            providerId: "default"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  casCGlobalConfig:
+    configurationPath: "http://github.com/Praqma/jenkins4casc/blob/master/jenkins-minimal-example.yaml"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitLabConnectionConfig:
+    connections:
+    - apiTokenId: "gitlab_token"
+      clientBuilderId: "autodetect"
+      connectionTimeout: 10
+      ignoreCertificateErrors: false
+      name: "GitLab Connection"
+      readTimeout: 10
+      url: "https://us-south.git.cloud.ibm.com/"
+    useAuthenticatedEndpoint: true
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://tarining-brajesh-jenkins.eu-gb.mybluemix.net/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
 tool:
   git:
     installations:
-      - name: Default
-        home: "git"
-
-
+    - home: "git"
+      name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
